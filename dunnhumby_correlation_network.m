@@ -5,7 +5,6 @@ clc
 addpath functions/
 addpath tensor_toolbox/
 
-<<<<<<< HEAD
 tic
 load('processed_data/trans_data')
 trans = all_trans;
@@ -21,7 +20,6 @@ commodity_name = unique(trans.COMMODITY_DESC);
 commodity_list = unique(table(trans.cmdtyID, trans.COMMODITY_DESC));
 [n_basket, ~] = size(unique(trans.basketID));
 [n_commodity, ~] = size(unique(trans.COMMODITY_DESC));
-=======
 %load transaction data
 filename = 'datasets/transaction_data.csv';
 T = readtable(filename);
@@ -85,16 +83,13 @@ trans.cmdtyID = findgroups(trans.COMMODITY_DESC);
 [n_basket, rows] = size(unique(trans.basketID));
 [n_product, rows] = size(unique(trans.productID));
 [n_commodity, rows] = size(unique(trans.COMMODITY_DESC));
->>>>>>> 907edd61452319ff8701a3a5b7fcd288a314fd63
 
 %build adjacency matrix
 quantity = zeros(n_basket,n_commodity);
 
-<<<<<<< HEAD
 %get the unit of each commodity for each basket
 unpivotedTdata = trans(:,{'basketID','COMMODITY_DESC','QUANTITY'});
 pivotedTdata = unstack(unpivotedTdata, 'QUANTITY', 'COMMODITY_DESC');
-=======
 
 %calculate correlation between two commodities
 %an edge will be formed if correlation is bigger than 0.7
@@ -109,7 +104,6 @@ for i = 1 : n_commodity
     quantity(:, i) = splitapply(@nansum,pivotedTdata(:,i+1),pivotedTdata.basketID);
 end
  
-<<<<<<< HEAD
 %convert quantity matrix to binary-e.g. a basket has A(1) or not(0)
 M = (quantity>0);
 colsum = sum(M, 1); %calculate the sum of each commodity across all baskets
@@ -196,7 +190,6 @@ legend('condP','corr')
 hold off
 title('store 364 condP vs correlation for apple');
 saveas(P,'Plot/store_364_condP vs corr.fig');
-=======
 %calculate correlation table
 corr = corrcoef(quantity);
 A = (corr>0.7);
